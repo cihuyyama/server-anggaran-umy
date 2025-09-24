@@ -1,5 +1,6 @@
 import KpiRepository from "../indikator-kinerja/kpi.repository";
 import PaguRepository from "../pagu/pagu.repository";
+import UserRepository from "../user/user.repository";
 import MaRepository from "./ma.repository";
 import { CreateMaInput, CreateMatoIndicatorInput } from "./ma.schema";
 
@@ -65,16 +66,27 @@ class MaService {
         )
     }
 
-    static async findMatoIndicator(kpiId: string, unitId: string) {
+    static async findMatoIndicator(kpiId: string, userId: string) {
+        const user = await UserRepository.FindById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const units = user.unit.length > 0 ? user.unit.map(u => u.id) : [];
+
         const [proker, kpi] = await Promise.all([
-            MaRepository.FindMatoIndicator(kpiId, unitId),
+            MaRepository.FindMatoIndicator(kpiId, units),
             KpiRepository.FindOne(kpiId)
         ])
         if (!kpi) {
             throw new Error('Kpi not found')
         }
 
-        const pagu = await PaguRepository.FindByJadwalIdAndUnitId(kpi.tahun, unitId)
+        let pagu = {};
+        if (units.length > 0) {
+            const result = await PaguRepository.FindByJadwalIdAndUnitId(kpi.tahun, units[0]);
+            pagu = result || {};
+        }
         return {
             proker,
             kpi,

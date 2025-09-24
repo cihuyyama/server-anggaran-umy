@@ -144,13 +144,14 @@ export async function findMatoIndicatorHandler(
     request: FastifyRequest<{
         Params: {
             kpiId: string,
-            unitId: string
+            unitId?: string
         }
     }>,
     reply: FastifyReply
 ) {
     try {
-        const ma = await MaService.findMatoIndicator(request.params.kpiId, request.params.unitId)
+        const userId = request.user.id
+        const ma = await MaService.findMatoIndicator(request.params.kpiId, userId)
         reply.send({
             data: ma.proker,
             message: "MA to Indicator Fetched Successfully",

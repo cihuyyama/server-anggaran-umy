@@ -93,22 +93,23 @@ class MaRepository {
     }
 
     static async FindMatoIndicator(
-        kpiId: string,
-        unitId: string
-    ) {
-        return db.maOnKpi.findMany({
-            where: {
-                kpiId,
-                unitId,
-            },
-            include: {
-                KPI: true,
-                MA: true,
-                Pembelian: true,
-                ReviewProgram: true,
-            }
-        })
-    }
+    kpiId: string,
+    unitId: string | string[]
+) {
+
+    return db.maOnKpi.findMany({
+        where: {
+            kpiId,
+            unitId: Array.isArray(unitId) ? { in: unitId } : unitId,
+        },
+        include: {
+            KPI: true,
+            MA: true,
+            Pembelian: true,
+            ReviewProgram: true,
+        }
+    });
+}
 
     static async FindOneMatoIndicator(id: string) {
         return db.maOnKpi.findUnique({
