@@ -72,7 +72,7 @@ class MaService {
             throw new Error('User not found');
         }
 
-        const units = user.unit.length > 0 ? user.unit.map(u => u.id) : [];
+        const units = user.unit.length > 0 ? user.unit.map((u: { id: string }) => u.id) : [];
 
         const [proker, kpi] = await Promise.all([
             MaRepository.FindMatoIndicator(kpiId, units),
