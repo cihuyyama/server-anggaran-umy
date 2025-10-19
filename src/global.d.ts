@@ -13,15 +13,15 @@ type Permission = {
     id: string;
     name: string;
     description: string;
-  };
-  
-  type Role = {
+};
+
+type Role = {
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
     permissions: Permission[];
-  };
+};
 
 export type UserPayload = {
     id: string

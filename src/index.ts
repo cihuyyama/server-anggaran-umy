@@ -30,7 +30,7 @@ server.register(import("@fastify/swagger-ui"), {
 });
 
 server.register(cors, {
-    origin: `${process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'http://localhost:3000'}`,
+    origin: `${process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : process.env.FRONTEND_URL_DEV}`,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
