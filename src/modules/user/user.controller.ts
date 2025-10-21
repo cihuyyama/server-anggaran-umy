@@ -40,7 +40,7 @@ export async function loginUserHandler(
         reply.setCookie('access_token', token, {
             path: '/',
             maxAge: 60 * 60 * 24 * 7,    // for a week
-            domain: `${process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined}`,
+            domain: `${process.env.NODE_ENV === 'production' ? process.env.DOMAIN : process.env.DOMAIN_DEV}`,
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production' ? true : false,
             // sameSite: 'none',
@@ -61,7 +61,7 @@ export async function logoutHandler(
 ) {
     reply.clearCookie('access_token', {
         path: '/',
-        domain: `${process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined}`,
+        domain: `${process.env.NODE_ENV === 'production' ? process.env.DOMAIN : process.env.DOMAIN_DEV}`,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production' ? true : false,
         // sameSite: 'none'
