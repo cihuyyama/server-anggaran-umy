@@ -1,26 +1,37 @@
-version: "3.8"
 services:
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      - MYSQL_DATABASE=sim_spmi
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    ports:
-      - 3306:3306
-    volumes:
-      - db_data:/var/lib/mysql
-
   api:
-    build:
-      context: .
+    image: cihuyyama/sim-spmi:latest
     restart: always
     ports:
       - "5002:5002"
     environment:
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=mysql://root:@global_mysql_db:3306/sim_spmi
+      - FRONTEND_URL=http://localhost:3000
+      - FRONTEND_URL_DEV=http://localhost:3000
+      - DOMAIN=localhost
+      - DOMAIN_DEV=localhost
+    volumes:
+      - api_uploads:/app/public
+    networks:
+      - default
+      - shared-db-network
+
+  client:
+    image: cihuyyama/spmi-client:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BASE_URL=http://api:5002/api/v1
+    networks:
+      - default
     depends_on:
-      - db
+      - api
 
 volumes:
-  db_data:
+  api_uploads:
+
+networks:
+  default:
+  shared-db-network:
+    name: shared-db-network
+    external: true

@@ -22,12 +22,15 @@ const createKpiSchema = z.object({
     standard: z.string({
         required_error: "Standar KPI harus diisi"
     }).optional(),
+    standardDesc: z.string().optional(),
     baseline: z.string({
         required_error: "Baseline KPI harus diisi"
     }).optional(),
+    baselineDesc: z.string().optional(),
     target: z.string({
         required_error: "Target KPI harus diisi"
     }).optional(),
+    targetDesc: z.string().optional(),
     secondaryPICId: z.string().optional(),
 })
 

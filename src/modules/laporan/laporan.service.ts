@@ -27,6 +27,7 @@ class LaporanService {
             laporanData.perbaikan,
             laporanData.rtl,
             laporanData.pic,
+            laporanData.akarMasalah,
             laporanData.capaian_auditor,
             laporanData.komentar,
             laporanData.rtl_auditor

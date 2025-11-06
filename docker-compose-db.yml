@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: global_mysql_db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=sim_spmi_global
+      - MYSQL_ROOT_PASSWORD=KataSandiYangSangatAman!
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - shared_backend_network
+
+volumes:
+  db_data:
+
+networks:
+  shared_backend_network:
+    name: shared-db-network
+    driver: bridge

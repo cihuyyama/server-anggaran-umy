@@ -6,7 +6,9 @@ import cors from '@fastify/cors'
 import { serverRoutes } from './routes'
 import multipart from '@fastify/multipart'
 import { streamFileByIDHandler, streamFileByPathHandler } from './modules/test-file/file.controller'
-const server = Fastify()
+const server = Fastify({
+    trustProxy: true
+})
 
 server.register(import("@fastify/swagger"), {
     swagger: {

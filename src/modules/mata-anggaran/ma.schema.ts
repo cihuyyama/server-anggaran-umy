@@ -9,6 +9,7 @@ const createMaSchema = z.object({
     indicatorId: z.string({
         required_error: "Indicator ID harus diisi"
     }),
+    output: z.string().optional(),
 })
 
 const createMatoIndicatorSchema = z.object({

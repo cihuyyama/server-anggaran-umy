@@ -159,7 +159,9 @@ model kpi {
   sifat            String
   standard         String?
   baseline         String?
+  baselineDesc     String?   @map("baseline_desc")
   target           String?
+  targetDesc       String?   @map("target_desc")
   active           Boolean   @default(true)
   primary_pic_id   String    @map("primary_pic_id")
   secondary_pic_id String?   @map("secondary_pic_id")
@@ -182,8 +184,9 @@ model kpi {
 model ma {
   id          String    @id @default(cuid())
   maCode      String    @map("ma_code")
-  name        String
   indicatorId String    @map("indicator_id")
+  name        String
+  output      String?
   MaOnKpi     MaOnKpi[]
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
@@ -492,6 +495,7 @@ model Laporan {
   capaian         Int?    @default(0)
   capaian_auditor Int?    @default(0)
   kendala         String? @db.Text
+  akarMasalah     String? @map("akar_masalah")
   perbaikan       String? @db.Text
   rtl             String? @db.Text
   pic             String? @db.Text

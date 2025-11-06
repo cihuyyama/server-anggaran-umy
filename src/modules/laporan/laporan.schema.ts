@@ -8,6 +8,7 @@ const createLaporanSchema = z.object({
     kendala: z.string({
         required_error: "Kendala harus diisi"
     }),
+    akarMasalah: z.string().optional(),
     perbaikan: z.string({
         required_error: "Perbaikan harus diisi"
     }),

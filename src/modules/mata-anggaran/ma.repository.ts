@@ -20,6 +20,7 @@ class MaRepository {
         indicatorId: string,
         maCode?: string,
         creatorId?: string,
+        output?: string
     ) {
         return db.$transaction(async (tx: Prisma.TransactionClient) => {
             const indicator = await tx.kpi.findUnique({
@@ -38,7 +39,8 @@ class MaRepository {
                     name,
                     maCode: fullCode,
                     indicatorId,
-                    createdById: creatorId
+                    createdById: creatorId,
+                    output: output
                 }
             })
         })

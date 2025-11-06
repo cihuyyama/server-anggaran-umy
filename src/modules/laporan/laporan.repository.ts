@@ -7,6 +7,7 @@ class LaporanRepository {
             data: {
                 capaian: inputDataLaporan.capaian,
                 kendala: inputDataLaporan.kendala,
+                akarMasalah: inputDataLaporan.akarMasalah ?? null,
                 perbaikan: inputDataLaporan.perbaikan,
                 rtl: inputDataLaporan.rtl,
                 pic: inputDataLaporan.pic,
@@ -32,6 +33,7 @@ class LaporanRepository {
         perbaikan: string,
         rtl: string,
         pic: string,
+        akarMasalah?: string,
         capaian_auditor?: number,
         komentar?: string,
         rtl_auditor?: string
@@ -49,6 +51,7 @@ class LaporanRepository {
                 capaian_auditor,
                 komentar,
                 rtl_auditor,
+                akarMasalah,
             }
         })
     }
@@ -111,7 +114,23 @@ class LaporanRepository {
                 id
             },
             include: {
-
+                indicator: {
+                    select: {
+                        tahun: true,
+                        name: true,
+                        kpiCode: true,
+                        target: true,
+                        MaOnKpi: {
+                            select: {
+                                id: true,
+                                MA: true,
+                                dokumenPersiapan: true,
+                                dokumenPelaksanaan: true,
+                                dokumenLaporan: true,
+                            }
+                        }
+                    }
+                },
             }
         })
     }

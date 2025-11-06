@@ -14,6 +14,7 @@ class MaService {
             maData.indicatorId,
             maData.maCode,
             creatorId,
+            maData.output
         )
     }
 

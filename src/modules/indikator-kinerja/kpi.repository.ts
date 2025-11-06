@@ -98,6 +98,8 @@ class KpiRepository {
             const nextCode = await this.getNextKPICode(kpiData.bidangId);
             const fullCode = `${bidang.code}.${nextCode}`;
 
+            console.log("Generated KPI Code:", fullCode);
+
             return tx.kpi.create({
                 data: {
                     kpiCode: fullCode,
@@ -109,7 +111,9 @@ class KpiRepository {
                     createdById,
                     standard: kpiData.standard ?? null,
                     baseline: kpiData.baseline ?? null,
+                    baselineDesc: kpiData.baselineDesc ?? null,
                     target: kpiData.target ?? null,
+                    targetDesc: kpiData.targetDesc ?? null,
                     secondary_pic_id: kpiData.secondaryPICId ?? null,
                 },
             });
@@ -268,7 +272,9 @@ class KpiRepository {
                 sifat: kpiData.sifat,
                 standard: kpiData.standard,
                 baseline: kpiData.baseline ?? null,
+                baselineDesc: kpiData.baselineDesc ?? null,
                 target: kpiData.target ?? null,
+                targetDesc: kpiData.targetDesc ?? null,
                 bidangId: kpiData.bidangId ?? null,
                 primary_pic_id: kpiData.primaryPICId ?? null,
                 secondary_pic_id: kpiData.secondaryPICId ?? null,
